@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 6 What’s stringr? | ICA Hackathon 2022</title>
+  <meta name="description" content="An introduction to tidy text analysis with R" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 6 What’s stringr? | ICA Hackathon 2022" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An introduction to tidy text analysis with R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 6 What’s stringr? | ICA Hackathon 2022" />
+  
+  <meta name="twitter:description" content="An introduction to tidy text analysis with R" />
+  
+
+<meta name="author" content="Lara Kobilke, Department of Media and Communication (IfKW), Ludwig-Maximilians University Munich" />
+
+
+<meta name="date" content="2022-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="text-data-manipulation-with-stringr.html"/>
+<link rel="next" href="tidy-text-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Tidy Text</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>General information</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-can-i-learn-from-this-tutorial"><i class="fa fa-check"></i>What can I learn from this tutorial?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html"><i class="fa fa-check"></i><b>1</b> Tutorial: Installing &amp; Understanding R/R Studio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#installing-r"><i class="fa fa-check"></i><b>1.1</b> Installing R</a></li>
+<li class="chapter" data-level="1.2" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#installing-r-studio"><i class="fa fa-check"></i><b>1.2</b> Installing R Studio</a></li>
+<li class="chapter" data-level="1.3" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#updating-r-and-r-studio"><i class="fa fa-check"></i><b>1.3</b> Updating R and R Studio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#on-windows"><i class="fa fa-check"></i><b>1.3.1</b> On Windows</a></li>
+<li class="chapter" data-level="1.3.2" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#on-mac"><i class="fa fa-check"></i><b>1.3.2</b> On MAC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#packages"><i class="fa fa-check"></i><b>1.4</b> Packages</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#installing-packages"><i class="fa fa-check"></i><b>1.4.1</b> Installing packages</a></li>
+<li class="chapter" data-level="1.4.2" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#activating-packages"><i class="fa fa-check"></i><b>1.4.2</b> Activating packages</a></li>
+<li class="chapter" data-level="1.4.3" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#getting-information-about-packages"><i class="fa fa-check"></i><b>1.4.3</b> Getting information about packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#take-aways"><i class="fa fa-check"></i><b>1.5</b> Take-Aways</a></li>
+<li class="chapter" data-level="1.6" data-path="tutorial-installing-understanding-rr-studio.html"><a href="tutorial-installing-understanding-rr-studio.html#additional-tutorials"><i class="fa fa-check"></i><b>1.6</b> Additional tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html"><i class="fa fa-check"></i><b>2</b> Tutorial: First steps in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> Using R as a calculator</a></li>
+<li class="chapter" data-level="2.2" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#using-variables-for-calculation"><i class="fa fa-check"></i><b>2.2</b> Using variables for calculation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#using-vectors-for-calculation"><i class="fa fa-check"></i><b>2.2.1</b> Using vectors for calculation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#selecting-values-from-a-vector"><i class="fa fa-check"></i><b>2.2.2</b> Selecting values from a vector</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#tutorial-working-with-data-files"><i class="fa fa-check"></i><b>2.3</b> Tutorial: Working with data (files)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#defining-your-working-directory"><i class="fa fa-check"></i><b>2.3.1</b> Defining your working directory</a></li>
+<li class="chapter" data-level="2.3.2" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#import-data-from-your-working-directory"><i class="fa fa-check"></i><b>2.3.2</b> Import data from your working directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#take-aways-1"><i class="fa fa-check"></i><b>2.4</b> Take-Aways</a></li>
+<li class="chapter" data-level="2.5" data-path="tutorial-first-steps-in-r.html"><a href="tutorial-first-steps-in-r.html#additional-tutorials-1"><i class="fa fa-check"></i><b>2.5</b> Additional tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Tutorial: Data management with tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#why-not-stick-with-base-r"><i class="fa fa-check"></i><b>3.1</b> Why not stick with Base R?</a></li>
+<li class="chapter" data-level="3.2" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#tidyverse-packages"><i class="fa fa-check"></i><b>3.2</b> Tidyverse packages</a></li>
+<li class="chapter" data-level="3.3" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>3.3</b> Tidy data</a></li>
+<li class="chapter" data-level="3.4" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.4</b> The pipe operator</a></li>
+<li class="chapter" data-level="3.5" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#data-transformation-with-dplyr"><i class="fa fa-check"></i><b>3.5</b> Data transformation with dplyr</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.5.1</b> select()</a></li>
+<li class="chapter" data-level="3.5.2" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.5.2</b> filter()</a></li>
+<li class="chapter" data-level="3.5.3" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5.3</b> arrange()</a></li>
+<li class="chapter" data-level="3.5.4" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.5.4</b> mutate()</a></li>
+<li class="chapter" data-level="3.5.5" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#simmarize-group_by"><i class="fa fa-check"></i><b>3.5.5</b> simmarize() [+ group_by()]</a></li>
+<li class="chapter" data-level="3.5.6" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#chaining-functions-in-a-pipe"><i class="fa fa-check"></i><b>3.5.6</b> Chaining functions in a pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#take-aways-2"><i class="fa fa-check"></i><b>3.6</b> Take-Aways</a></li>
+<li class="chapter" data-level="3.7" data-path="tutorial-data-management-with-tidyverse.html"><a href="tutorial-data-management-with-tidyverse.html#additional-tutorials-2"><i class="fa fa-check"></i><b>3.7</b> Additional tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html"><i class="fa fa-check"></i><b>4</b> Tutorial: Data visualization with ggplot</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#why-not-stick-with-base-r-1"><i class="fa fa-check"></i><b>4.1</b> Why not stick with Base R?</a></li>
+<li class="chapter" data-level="4.2" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#components-of-a-ggplot-graph"><i class="fa fa-check"></i><b>4.2</b> Components of a ggplot graph</a></li>
+<li class="chapter" data-level="4.3" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#installing-activating-ggplot"><i class="fa fa-check"></i><b>4.3</b> Installing &amp; activating ggplot</a></li>
+<li class="chapter" data-level="4.4" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#building-your-first-plot"><i class="fa fa-check"></i><b>4.4</b> Building your first plot</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#data"><i class="fa fa-check"></i><b>4.4.1</b> Data</a></li>
+<li class="chapter" data-level="4.4.2" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#aesthetics"><i class="fa fa-check"></i><b>4.4.2</b> Aesthetics</a></li>
+<li class="chapter" data-level="4.4.3" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#geometrics"><i class="fa fa-check"></i><b>4.4.3</b> Geometrics</a></li>
+<li class="chapter" data-level="4.4.4" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#scales"><i class="fa fa-check"></i><b>4.4.4</b> Scales</a></li>
+<li class="chapter" data-level="4.4.5" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#themes"><i class="fa fa-check"></i><b>4.4.5</b> Themes</a></li>
+<li class="chapter" data-level="4.4.6" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#labs"><i class="fa fa-check"></i><b>4.4.6</b> Labs</a></li>
+<li class="chapter" data-level="4.4.7" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#facets"><i class="fa fa-check"></i><b>4.4.7</b> Facets</a></li>
+<li class="chapter" data-level="4.4.8" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#saving-graphs"><i class="fa fa-check"></i><b>4.4.8</b> Saving graphs</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#other-common-plot-types"><i class="fa fa-check"></i><b>4.5</b> Other common plot types</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#bar-plots"><i class="fa fa-check"></i><b>4.5.1</b> bar plots</a></li>
+<li class="chapter" data-level="4.5.2" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#box-plots"><i class="fa fa-check"></i><b>4.5.2</b> box plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#take-aways-3"><i class="fa fa-check"></i><b>4.6</b> Take Aways</a></li>
+<li class="chapter" data-level="4.7" data-path="tutorial-data-visualization-with-ggplot.html"><a href="tutorial-data-visualization-with-ggplot.html#additional-tutorials-3"><i class="fa fa-check"></i><b>4.7</b> Additional tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="text-data-manipulation-with-stringr.html"><a href="text-data-manipulation-with-stringr.html"><i class="fa fa-check"></i><b>5</b> Text data manipulation with stringr</a></li>
+<li class="chapter" data-level="6" data-path="whats-stringr.html"><a href="whats-stringr.html"><i class="fa fa-check"></i><b>6</b> What’s stringr?</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="whats-stringr.html"><a href="whats-stringr.html#working-with-strings"><i class="fa fa-check"></i><b>6.1</b> Working with strings</a></li>
+<li class="chapter" data-level="6.2" data-path="whats-stringr.html"><a href="whats-stringr.html#working-with-string-patterns"><i class="fa fa-check"></i><b>6.2</b> Working with string patterns</a></li>
+<li class="chapter" data-level="6.3" data-path="whats-stringr.html"><a href="whats-stringr.html#working-with-regular-expressions"><i class="fa fa-check"></i><b>6.3</b> Working with regular expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tidy-text-analysis.html"><a href="tidy-text-analysis.html"><i class="fa fa-check"></i><b>7</b> Tidy text analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="tidy-text-analysis.html"><a href="tidy-text-analysis.html#what-is-tidy-text"><i class="fa fa-check"></i><b>7.1</b> What is tidy text?</a></li>
+<li class="chapter" data-level="7.2" data-path="tidy-text-analysis.html"><a href="tidy-text-analysis.html#example"><i class="fa fa-check"></i><b>7.2</b> Example</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="tidy-text-analysis.html"><a href="tidy-text-analysis.html#first-steps"><i class="fa fa-check"></i><b>7.2.1</b> First steps</a></li>
+<li class="chapter" data-level="7.2.2" data-path="tidy-text-analysis.html"><a href="tidy-text-analysis.html#preprocessing-real-world-data"><i class="fa fa-check"></i><b>7.2.2</b> Preprocessing real-world data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exercise.html"><a href="exercise.html"><i class="fa fa-check"></i>Exercise</a></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/LKobilke/ICA_Hackathon22" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ICA Hackathon 2022</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="whats-stringr" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number"> 6</span> What’s stringr?<a href="whats-stringr.html#whats-stringr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The <code>stringr</code> package is another package of the <code>tidyverse</code> family, i.e., it comes pre-installed with the tidyverse. The package offers a neat set of functions that makes working with strings really simple for beginners. Therefore, <code>stringr</code> is a good place to start getting into text data management. A string is <em>a data type that is used to represent text rather than numbers</em>.</p>
+<div id="working-with-strings" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Working with strings<a href="whats-stringr.html#working-with-strings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, let’s create a vector that contains some strings and print the vector to the console!</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="whats-stringr.html#cb128-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;banana&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;pear&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;raspberry&quot;</span>, <span class="st">&quot;kiwi&quot;</span>)</span>
+<span id="cb128-2"><a href="whats-stringr.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-3"><a href="whats-stringr.html#cb128-3" aria-hidden="true" tabindex="-1"></a>fruits</span></code></pre></div>
+<pre><code>## [1] &quot;banana&quot;     &quot;apple&quot;      &quot;pear&quot;       &quot;strawberry&quot; &quot;raspberry&quot; 
+## [6] &quot;kiwi&quot;</code></pre>
+<p>First, we want to know how long each of these strings is, i.e., how many characters the elements of the fruits vector contain. We will use the <code>str_length()</code> function.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="whats-stringr.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(fruits)</span></code></pre></div>
+<pre><code>## [1]  6  5  4 10  9  4</code></pre>
+<p>That was easy. Next, we want to join multiple strings into a single string. We will use the <code>str_c</code> function.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="whats-stringr.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(fruits, <span class="at">collapse =</span> <span class="st">&quot; and &quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;banana and apple and pear and strawberry and raspberry and kiwi&quot;</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="whats-stringr.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If collapse is not NULL, it will be inserted between elements of the result, here: and</span></span></code></pre></div>
+<p>You can also change the order of the <code>str_c</code> function:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="whats-stringr.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(<span class="st">&quot;My favourite fruit is: &quot;</span>, fruits, <span class="at">collapse =</span> <span class="cn">NULL</span>) </span></code></pre></div>
+<pre><code>## [1] &quot;My favourite fruit is: banana&quot;     &quot;My favourite fruit is: apple&quot;     
+## [3] &quot;My favourite fruit is: pear&quot;       &quot;My favourite fruit is: strawberry&quot;
+## [5] &quot;My favourite fruit is: raspberry&quot;  &quot;My favourite fruit is: kiwi&quot;</code></pre>
+<p>Let’s say, we want to extract substrings from a character vector. For example, we only want to keep the second to fourth letter of each string. We can use the <code>str_sub</code> function to achieve that.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="whats-stringr.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(fruits, <span class="at">start =</span> <span class="dv">2</span>, <span class="at">end =</span> <span class="dv">4</span>) </span></code></pre></div>
+<pre><code>## [1] &quot;ana&quot; &quot;ppl&quot; &quot;ear&quot; &quot;tra&quot; &quot;asp&quot; &quot;iwi&quot;</code></pre>
+</div>
+<div id="working-with-string-patterns" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Working with string patterns<a href="whats-stringr.html#working-with-string-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often we want to search for certain string patterns in a text document. <strong>String patterns</strong> are character sequences (for instance, letter, numbers, or special characters). Let’s assume for a second that we have misspelled one of our fruits (<em>banana</em>, we have switched the <em>na</em> letters to <em>an</em>).</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="whats-stringr.html#cb139-1" aria-hidden="true" tabindex="-1"></a>misspelled_fruits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;baanan&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;pear&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;raspberry&quot;</span>, <span class="st">&quot;kiwi&quot;</span>)</span></code></pre></div>
+<p>It would be really great if we could search for the string pattern “<em>an</em>” and replace it with the string pattern “<em>na</em>” automatically, wouldn’t it? Well, <code>stringr</code>offers some functions to do just that. For example, <code>str_detect()</code> tells you if there’s any match to the pattern.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="whats-stringr.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(misspelled_fruits, <span class="st">&quot;an&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p>Now we know that there is one word that contain letters that match the <em>“an”</em> pattern. We have a misspelling! What is that word? <code>str_subset()</code> extracts the matching strings, so that we can find out.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="whats-stringr.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(misspelled_fruits, <span class="st">&quot;an&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;baanan&quot;</code></pre>
+<p>Of course, it’s <em>banana</em>. But how many times has “<em>an</em>” been misspelled in <em>banana</em>? Just once? Let’s find out with <code>str_count(</code>, which counts the number of patterns in each string.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="whats-stringr.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(misspelled_fruits, <span class="st">&quot;an&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 2 0 0 0 0 0</code></pre>
+<p>Two times! Let’s fix that with the <code>str_replace</code> function.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="whats-stringr.html#cb146-1" aria-hidden="true" tabindex="-1"></a>misspelled_fruits <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(misspelled_fruits, <span class="st">&quot;anan&quot;</span>, <span class="st">&quot;nana&quot;</span>)</span>
+<span id="cb146-2"><a href="whats-stringr.html#cb146-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-3"><a href="whats-stringr.html#cb146-3" aria-hidden="true" tabindex="-1"></a>misspelled_fruits</span></code></pre></div>
+<pre><code>## [1] &quot;banana&quot;     &quot;apple&quot;      &quot;pear&quot;       &quot;strawberry&quot; &quot;raspberry&quot; 
+## [6] &quot;kiwi&quot;</code></pre>
+<p>Perfect! We have fixed our misspelled fruits. However, keep in mind that pattern correction can mess up your string pretty badly if you are not cautious. Therefore, you should always explore your strings very thoroughly before replacing any string patterns. For example, let’s see what our pattern detection will uncover if our misspelled fruits would contain an additional <em>orange</em>, which has been spelled correctly:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="whats-stringr.html#cb148-1" aria-hidden="true" tabindex="-1"></a>misspelled_fruits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;baanan&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;pear&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;raspberry&quot;</span>, <span class="st">&quot;kiwi&quot;</span>, <span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb148-2"><a href="whats-stringr.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="whats-stringr.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(misspelled_fruits, <span class="st">&quot;an&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+<p>Now, <code>str_detect()</code> matches two words with the “<em>an</em>” pattern, but the latter is not a misspelling! So always be careful!</p>
+</div>
+<div id="working-with-regular-expressions" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Working with regular expressions<a href="whats-stringr.html#working-with-regular-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often, we want to match more complicated string patterns than a simple “<em>an</em>”. For example, we might wish to detect all strings in our text document that do not start with “<em>RT </em>”, because “<em>RT</em>” at the beginning of a string implies a retweet rather than an original tweet when analyzing Twitter data. Arguebly, we are often not really interested in analyzing retweets (but sometimes we are, it depends on the research question).</p>
+<p>To search and match complex string patterns, we need regular expressions. <strong>Regular expressions</strong> (short: <em>regex</em>) are a concise language for describing patterns of text. Regex should not be taken literally, but have a non-literal meaning.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="text-data-manipulation-with-stringr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy-text-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/LKobilke/ICA_Hackathon22/edit/main/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Tidy Text Analysis.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
